@@ -13,18 +13,25 @@ Plugin 'ctrlpvim/ctrlp.vim'
 
 
 call vundle#end()
-filetype plugin indent on
 
 " =================================================
 " END VUNDLE
 " =================================================
 
+syntax on
+filetype on
+filetype indent on
+filetype plugin on
+
 let mapleader = " "
 set clipboard=unnamed
 colorscheme slate
-syntax on
 set backspace=2
 set autowrite
+
+" no bloody beeping
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -47,7 +54,6 @@ set rnu
 
 " macro to add frozen string literal comment to top of ruby files
 let @f = 'ggO# frozen_string_literal: true'
-filetype plugin on
 
 " arrows for buffer  nav
 nnoremap <right> :bn<cr>
