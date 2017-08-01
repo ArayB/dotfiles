@@ -10,7 +10,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'ctrlpvim/ctrlp.vim'
-
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-endwise'
 
 call vundle#end()
 
@@ -67,6 +69,7 @@ set backup                     " Enable creation of backup file.
 set backupdir=~/.vim/backups " Where backups will go.
 set directory=~/.vim/tmp     " Where temporary files will go.
 
+" Auto trim whitespace on save
 function! TrimWhiteSpace()
   %s/\s\+$//e
 endfunction
@@ -79,18 +82,11 @@ map <leader>w :w<cr>
 map <leader>q :q<cr>
 map <leader>d :bd<cr>
 
-
-" Allow cursor to move anywhere in file
-set ve=all
-
-" Enter inserts blank line below cursor
-map <Enter> o<ESC>
-
-" " Shift+Enter inserts blank line above cursor
-map <S-Enter> O<ESC>
-
 " RSpec.vim mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
+
+" Airline display buffers
+let g:airline#extensions#tabline#enabled = 1
