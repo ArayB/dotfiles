@@ -14,6 +14,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 
 call vundle#end()
 
