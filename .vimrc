@@ -13,6 +13,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-endwise'
+Plugin 'scrooloose/nerdcommenter'
 
 call vundle#end()
 
@@ -61,6 +62,9 @@ let @f = 'ggO# frozen_string_literal: true'
 nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
 
+nnoremap <C-h> :bn<cr>
+nnoremap <C-l> :bp<cr>
+
 set history=50  " Number of things to remember in history.
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 
@@ -90,3 +94,15 @@ nnoremap <Leader>a :call RunAllSpecs()<CR>
 
 " Airline display buffers
 let g:airline#extensions#tabline#enabled = 1
+
+" ==============================================================
+"                    NERDCOMMENTER
+" ==============================================================
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
