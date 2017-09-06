@@ -88,8 +88,6 @@ export EDITOR='vim'
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
-export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
-alias config='/usr/bin/git --git-dir=/Users/anthony.barnes/.config/ --work-tree=/Users/anthony.barnes'
 
 # source file for env vars if it exists
 [[ -f ~/.zshrc.keys ]] && source ~/.zshrc.keys

@@ -29,7 +29,7 @@ filetype indent on
 filetype plugin on
 
 let mapleader = " "
-set clipboard=unnamed
+" set clipboard=unnamed
 colorscheme slate
 set backspace=2
 set autowrite
