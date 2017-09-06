@@ -72,8 +72,8 @@ set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 
 " Backups & Files
 set backup                     " Enable creation of backup file.
-set backupdir=~/.vim/backups " Where backups will go.
-set directory=~/.vim/tmp     " Where temporary files will go.
+set backupdir=~/.dotfiles/vim/backups " Where backups will go.
+set directory=~/.dotfiles/vim/tmp     " Where temporary files will go.
 
 " Auto trim whitespace on save
 function! TrimWhiteSpace()

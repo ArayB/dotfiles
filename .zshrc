@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/anthony.barnes/.oh-my-zsh
+# export ZSH=/Users/anthony.barnes/.oh-my-zsh
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -86,10 +87,9 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.rbenv/shims:$PATH"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# export PATH="$HOME/.rbenv/shims:$PATH"
 
 # source file for env vars if it exists
 [[ -f ~/.zshrc.keys ]] && source ~/.zshrc.keys
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
