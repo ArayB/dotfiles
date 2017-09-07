@@ -16,6 +16,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
+Plugin 'jgdavey/tslime.vim'
 
 call vundle#end()
 
@@ -93,6 +94,9 @@ nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
+
+" send rspec commands to tmux
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " Airline display buffers
 let g:airline#extensions#tabline#enabled = 1
