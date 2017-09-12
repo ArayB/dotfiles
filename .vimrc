@@ -65,8 +65,10 @@ let @f = 'ggO# frozen_string_literal: true'
 nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
 
-nnoremap <C-h> :bn<cr>
-nnoremap <C-l> :bp<cr>
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 
 set history=50  " Number of things to remember in history.
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
@@ -96,7 +98,7 @@ nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
 
 " send rspec commands to tmux
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+" let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " Airline display buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -117,7 +119,7 @@ let g:NERDTrimTrailingWhitespace = 1
 " ==============================================================
 "                    SILVER SEARCHER
 " ==============================================================
-"
+
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
@@ -136,3 +138,11 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " bind \ (backward slash) to grep shortcut
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
+
+" ==============================================================
+"                    AUTO COMPLETE RUBY
+" ==============================================================
+
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
