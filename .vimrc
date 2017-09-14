@@ -22,6 +22,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
+Plugin 'tpope/vim-rails'
 
 call vundle#end()
 
