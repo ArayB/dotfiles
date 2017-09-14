@@ -17,6 +17,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'jgdavey/tslime.vim'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
@@ -143,6 +144,11 @@ nnoremap \ :Ag<SPACE>
 "                    AUTO COMPLETE RUBY
 " ==============================================================
 
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
+" let g:rubycomplete_buffer_loading = 1
+" let g:rubycomplete_classes_in_global = 1
+" let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+"improve autocomplete menu color
