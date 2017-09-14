@@ -93,3 +93,8 @@ export EDITOR='vim'
 # source file for env vars if it exists
 [[ -f ~/.zshrc.keys ]] && source ~/.zshrc.keys
 
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment black default "%(!.%{%F{yellow}%}.)ant"
+  fi
+}
