@@ -18,6 +18,10 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'ervandew/supertab'
 
 call vundle#end()
 
@@ -102,7 +106,7 @@ nnoremap <Leader>a :call RunAllSpecs()<CR>
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " Airline display buffers
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='solarized'
 " ==============================================================
 "                    NERDCOMMENTER
