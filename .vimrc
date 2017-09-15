@@ -51,6 +51,13 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
+" keeps buffers in memory when not in view, preserves history, marks etc.
+set hidden
+
+" Highlight 80th column and beyond column 120
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn="80,".join(range(120,999),",")
+
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
