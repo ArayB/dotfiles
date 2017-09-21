@@ -2,6 +2,9 @@ s from command line to use global ignore:
 # git config --global core.excludesfile ~/.gitignore_global
 
 tags
+GTAGS
+GPATH
+GRTAGS
 
 # IDE and package files #
 .idea

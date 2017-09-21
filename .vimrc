@@ -101,8 +101,10 @@ autocmd BufWritePre * :call TrimWhiteSpace()
 let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
 map <leader>w :w<cr>
+map <leader>fs :w<cr>
 map <leader>q :q<cr>
-map <leader>d :bd<cr>
+map <leader>qq :q<cr>
+map <leader>bd :bd<cr>
 
 " RSpec.vim mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
