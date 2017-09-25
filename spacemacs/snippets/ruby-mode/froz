@@ -1,0 +1,5 @@
+#key : froz
+#name : FrozenStringLiteral
+#contributor : Ant Barnes
+# --
+# frozen_string_literal: true
