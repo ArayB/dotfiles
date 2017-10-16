@@ -5,9 +5,12 @@ tags
 GTAGS
 GPATH
 GRTAGS
+TAGS
 
 # IDE and package files #
 .idea
+
+.dir-locals.el
 
 # Compiled source #
 ###################
