@@ -39,7 +39,8 @@ values."
      javascript
      (ruby :variables
            ruby-version-manager 'rbenv
-           ruby-test-runner 'rspec)
+           ruby-test-runner 'rspec
+           ruby-enable-enh-ruby-mode t)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -51,7 +52,7 @@ values."
      ;; better-defaults
      emacs-lisp
      ;; gtags
-     git
+     ;; git
      ;; markdown
      ;; org
      (shell :variables
@@ -311,6 +312,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq evil-want-abbrev-expand-on-insert-exit nil)
   )
 
 (defun dotspacemacs/user-config ()
@@ -322,6 +324,10 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (require 'tramp)
   (require 'helm-bookmark)
+  ;; always enable indent-guide
+  (spacemacs/toggle-indent-guide-globally-on)
+  ;; focus rspec window
+  (setcdr (assoc "*rspec-compilation*" popwin:special-display-config) '(:dedicated t :position bottom :stick t :noselect nil :height 0.4))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
