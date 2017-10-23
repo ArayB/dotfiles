@@ -6,6 +6,7 @@ GTAGS
 GPATH
 GRTAGS
 TAGS
+git_stats
 
 # IDE and package files #
 .idea
