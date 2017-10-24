@@ -23,6 +23,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
+Plugin 'wakatime/vim-wakatime'
 
 call vundle#end()
 
