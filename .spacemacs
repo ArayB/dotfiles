@@ -314,6 +314,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   ;; without this there is some weird autocompletion issues around the end statement on ruby methods
   (setq evil-want-abbrev-expand-on-insert-exit nil)
+  (setq-default helm-display-function 'helm-default-display-buffer)
   )
 
 (defun dotspacemacs/user-config ()
