@@ -17,13 +17,13 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'jgdavey/tslime.vim'
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
-Plugin 'wakatime/vim-wakatime'
+" Plugin 'wakatime/vim-wakatime'
 
 call vundle#end()
 
@@ -37,11 +37,12 @@ filetype indent on
 filetype plugin on
 
 let mapleader = " "
-" set clipboard=unnamed
+set clipboard=unnamed
 colorscheme slate
 set backspace=2
 set autowrite
 
+"
 " no bloody beeping
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -112,6 +113,7 @@ nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
+
 
 " send rspec commands to tmux
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
