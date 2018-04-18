@@ -23,6 +23,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
+Plugin 'elixir-editors/vim-elixir'
 " Plugin 'wakatime/vim-wakatime'
 
 call vundle#end()
@@ -37,7 +38,7 @@ filetype indent on
 filetype plugin on
 
 let mapleader = " "
-set clipboard=unnamed
+" set clipboard=unnamed
 colorscheme slate
 set backspace=2
 set autowrite
@@ -85,6 +86,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+" gd to go to tag definition
+:nnoremap gd <C-]>
+
 set history=50  " Number of things to remember in history.
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 
@@ -107,6 +111,14 @@ map <leader>fs :w<cr>
 map <leader>q :q<cr>
 map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
+
+" ctrl-j and ctrl-k to move lines up and down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " RSpec.vim mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
@@ -168,3 +180,12 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
+" ==============================================================
+"                          NETRW
+" ==============================================================
+
+" Hide banner, uncomment this once used to commands?
+" let g:netrw_banner = 0
+
+nnoremap <leader>e :Ex<CR>
