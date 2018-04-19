@@ -10,8 +10,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
@@ -21,10 +21,12 @@ Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
 Plugin 'elixir-editors/vim-elixir'
-" Plugin 'wakatime/vim-wakatime'
+Plugin 'mtth/scratch.vim'
+" Plugin 'moofish32/vim-ex_test'
+Plugin 'machakann/vim-highlightedyank'
 
 call vundle#end()
 
@@ -112,20 +114,18 @@ map <leader>q :q<cr>
 map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
 
-" ctrl-j and ctrl-k to move lines up and down
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
-
 " RSpec.vim mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
 
+" ExTest.vim mappings
+" map <Leader>t :call RunCurrentTestFile()<CR>
+" map <Leader>t :call RunFileSpecs()<CR>
+" map <Leader>s :call RunNearestTest()<CR>
+" map <Leader>l :call RunLastTest()<CR>
+" map <Leader>a :call RunAllTests()<CR>
 
 " send rspec commands to tmux
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
