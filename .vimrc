@@ -10,20 +10,23 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'jgdavey/tslime.vim'
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
-Plugin 'wakatime/vim-wakatime'
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'mtth/scratch.vim'
+" Plugin 'moofish32/vim-ex_test'
+Plugin 'machakann/vim-highlightedyank'
 
 call vundle#end()
 
@@ -42,6 +45,7 @@ colorscheme slate
 set backspace=2
 set autowrite
 
+"
 " no bloody beeping
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -84,6 +88,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+" gd to go to tag definition
+:nnoremap gd <C-]>
+
 set history=50  " Number of things to remember in history.
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 
@@ -112,6 +119,13 @@ nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 nnoremap <Leader>a :call RunAllSpecs()<CR>
+
+" ExTest.vim mappings
+" map <Leader>t :call RunCurrentTestFile()<CR>
+" map <Leader>t :call RunFileSpecs()<CR>
+" map <Leader>s :call RunNearestTest()<CR>
+" map <Leader>l :call RunLastTest()<CR>
+" map <Leader>a :call RunAllTests()<CR>
 
 " send rspec commands to tmux
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
@@ -166,3 +180,12 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
+" ==============================================================
+"                          NETRW
+" ==============================================================
+
+" Hide banner, uncomment this once used to commands?
+" let g:netrw_banner = 0
+
+nnoremap <leader>e :Ex<CR>

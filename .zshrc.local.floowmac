@@ -1,3 +1,4 @@
 export ZSH=/Users/anthony.barnes/.oh-my-zsh
 
-eval "$(rbenv init -)"
+export EDITOR='vim'
+export BUNDLER_EDITOR='atom'
