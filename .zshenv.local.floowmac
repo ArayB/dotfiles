@@ -1,3 +1,4 @@
+export EDITOR='nvim'
 export ZSH=/Users/anthony.barnes/.oh-my-zsh
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"

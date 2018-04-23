@@ -21,12 +21,14 @@ Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'jlanzarotta/bufexplorer'
-" Plugin 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
 Plugin 'elixir-editors/vim-elixir'
 Plugin 'mtth/scratch.vim'
 " Plugin 'moofish32/vim-ex_test'
 Plugin 'machakann/vim-highlightedyank'
+Plugin 'Townk/vim-autoclose'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 
@@ -128,11 +130,11 @@ nnoremap <Leader>a :call RunAllSpecs()<CR>
 " map <Leader>a :call RunAllTests()<CR>
 
 " send rspec commands to tmux
-" let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " Airline display buffers
 " let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='solarized'
+" let g:airline_theme='solarized'
 " ==============================================================
 "                    NERDCOMMENTER
 " ==============================================================
@@ -188,4 +190,17 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " Hide banner, uncomment this once used to commands?
 " let g:netrw_banner = 0
 
-nnoremap <leader>e :Ex<CR>
+map <leader>e :Explore<cr>
+
+" ==============================================================
+"                          ALE
+" ==============================================================
+highlight ALEWarning ctermbg=Black
+
+let g:ale_linters_explicit = 1
+let g:ale_fixers = {
+\   'ruby': ['rubocop'],
+\   'javascript': ['prettier'],
+\   'markdown': ['write-good'],
+\}
+
