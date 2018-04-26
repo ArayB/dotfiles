@@ -10,6 +10,8 @@ TAGS
 git_stats
 /coverage
 
+.projections.json
+
 # IDE and package files #
 .idea
 
