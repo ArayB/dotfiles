@@ -2,7 +2,6 @@
 " VUNDLE
 " =================================================
 set nocompatible
-filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -10,23 +9,29 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'ctrlpvim/ctrlp.vim'
+
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
+
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'jgdavey/tslime.vim'
-" Plugin 'tpope/vim-fugitive'
+
+Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-endwise'
+
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
-Plugin 'tpope/vim-rails'
 Plugin 'elixir-editors/vim-elixir'
-Plugin 'mtth/scratch.vim'
 " Plugin 'moofish32/vim-ex_test'
 Plugin 'machakann/vim-highlightedyank'
+Plugin 'Townk/vim-autoclose'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 
@@ -40,7 +45,7 @@ filetype indent on
 filetype plugin on
 
 let mapleader = " "
-" set clipboard=unnamed
+set clipboard=unnamedplus
 colorscheme slate
 set backspace=2
 set autowrite
@@ -115,10 +120,10 @@ map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
 
 " RSpec.vim mappings
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
-nnoremap <Leader>a :call RunAllSpecs()<CR>
+nnoremap <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
+nnoremap <Leader>s :w<cr>:call RunNearestSpec()<CR>
+nnoremap <Leader>l :w<cr>:call RunLastSpec()<CR>
+nnoremap <Leader>a :w<cr>:call RunAllSpecs()<CR>
 
 " ExTest.vim mappings
 " map <Leader>t :call RunCurrentTestFile()<CR>
@@ -128,11 +133,11 @@ nnoremap <Leader>a :call RunAllSpecs()<CR>
 " map <Leader>a :call RunAllTests()<CR>
 
 " send rspec commands to tmux
-" let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " Airline display buffers
 " let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='solarized'
+" let g:airline_theme='solarized'
 " ==============================================================
 "                    NERDCOMMENTER
 " ==============================================================
@@ -188,4 +193,17 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " Hide banner, uncomment this once used to commands?
 " let g:netrw_banner = 0
 
-nnoremap <leader>e :Ex<CR>
+map <leader>e :Explore<cr>
+
+" ==============================================================
+"                          ALE
+" ==============================================================
+highlight ALEWarning ctermbg=Black
+
+let g:ale_linters_explicit = 1
+let g:ale_fixers = {
+\   'ruby': ['rubocop'],
+\   'javascript': ['prettier'],
+\   'markdown': ['write-good'],
+\}
+
