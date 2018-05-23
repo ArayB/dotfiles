@@ -9,6 +9,7 @@ GRTAGS
 TAGS
 git_stats
 /coverage
+/target
 
 .projections.json
 

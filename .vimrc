@@ -24,6 +24,8 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-bundler'
 
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
@@ -32,6 +34,12 @@ Plugin 'elixir-editors/vim-elixir'
 Plugin 'machakann/vim-highlightedyank'
 Plugin 'Townk/vim-autoclose'
 Plugin 'w0rp/ale'
+Plugin 'Yggdroot/indentLine'
+
+" HTML stuff
+Plugin 'alvan/vim-closetag'
+
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 
@@ -70,6 +78,7 @@ let &colorcolumn="80,".join(range(120,999),",")
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
+setlocal list listchars=tab:»·,trail:·,nbsp:·
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
@@ -87,11 +96,6 @@ let @f = 'ggO# frozen_string_literal: true'
 " arrows for buffer  nav
 nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
-
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
 
 " gd to go to tag definition
 :nnoremap gd <C-]>
@@ -118,6 +122,7 @@ map <leader>fs :w<cr>
 map <leader>q :q<cr>
 map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
+map <leader>b :bu<space>
 
 " RSpec.vim mappings
 nnoremap <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
