@@ -108,7 +108,6 @@ if [[ "${terminfo[kcud1]}" != "" ]]; then
   zle -N down-line-or-beginning-search
   bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
-eval "$(rbenv init -)"
 
 . $HOME/.asdf/asdf.sh
 
