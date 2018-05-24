@@ -1,4 +1,4 @@
-s from command line to use global ignore:
+# from command line to use global ignore:
 # git config --global core.excludesfile ~/.gitignore_global
 
 .tags
