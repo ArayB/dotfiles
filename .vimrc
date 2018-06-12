@@ -27,6 +27,9 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-bundler'
 
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tommcdo/vim-fubitive'
+
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
 Plugin 'elixir-editors/vim-elixir'
@@ -40,6 +43,11 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'alvan/vim-closetag'
 
 Plugin 'christoomey/vim-tmux-navigator'
+
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'jparise/vim-graphql'
+
+Plugin 'pangloss/vim-javascript'
 
 call vundle#end()
 
@@ -58,7 +66,6 @@ colorscheme slate
 set backspace=2
 set autowrite
 
-"
 " no bloody beeping
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -90,9 +97,6 @@ set nojoinspaces
 set nu
 set rnu
 
-" macro to add frozen string literal comment to top of ruby files
-let @f = 'ggO# frozen_string_literal: true'
-
 " arrows for buffer  nav
 nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
@@ -114,9 +118,6 @@ function! TrimWhiteSpace()
 endfunction
 autocmd BufWritePre * :call TrimWhiteSpace()
 
-" ruby path if you are using rbenv
-let g:ruby_path = system('echo $HOME/.rbenv/shims')
-
 map <leader>w :w<cr>
 map <leader>fs :w<cr>
 map <leader>q :q<cr>
@@ -124,25 +125,7 @@ map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
 map <leader>b :bu<space>
 
-" RSpec.vim mappings
-nnoremap <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :w<cr>:call RunNearestSpec()<CR>
-nnoremap <Leader>l :w<cr>:call RunLastSpec()<CR>
-nnoremap <Leader>a :w<cr>:call RunAllSpecs()<CR>
 
-" ExTest.vim mappings
-" map <Leader>t :call RunCurrentTestFile()<CR>
-" map <Leader>t :call RunFileSpecs()<CR>
-" map <Leader>s :call RunNearestTest()<CR>
-" map <Leader>l :call RunLastTest()<CR>
-" map <Leader>a :call RunAllTests()<CR>
-
-" send rspec commands to tmux
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-
-" Airline display buffers
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme='solarized'
 " ==============================================================
 "                    NERDCOMMENTER
 " ==============================================================
@@ -179,17 +162,6 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
 
-" ==============================================================
-"                    AUTO COMPLETE RUBY
-" ==============================================================
-
-" let g:rubycomplete_buffer_loading = 1
-" let g:rubycomplete_classes_in_global = 1
-" let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 " ==============================================================
 "                          NETRW
@@ -205,10 +177,68 @@ map <leader>e :Explore<cr>
 " ==============================================================
 highlight ALEWarning ctermbg=Black
 
-let g:ale_linters_explicit = 1
 let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \   'javascript': ['prettier'],
 \   'markdown': ['write-good'],
 \}
 
+" ==============================================================
+"                          FUGITIVE
+" ==============================================================
+nnoremap <space>ga :Git add %:p<CR><CR>
+nnoremap <space>gs :Gstatus<CR>
+" nnoremap <space>gc :Gcommit -v -q<CR>
+nnoremap <space>gc :Dispatch git commit<CR>
+" nnoremap <space>gt :Gcommit -v -q %:p<CR>
+" nnoremap <space>gd :Gdiff<CR>
+nnoremap <space>ge :Gedit<CR>
+nnoremap <space>gr :Gread<CR>
+nnoremap <space>gw :Gwrite<CR><CR>
+" nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <space>gp :Ggrep<Space>
+nnoremap <space>gm :Gmove<Space>
+nnoremap <space>gb :Git branch<Space>
+nnoremap <space>go :Git checkout<Space>
+nnoremap <space>gps :Dispatch! git push<CR>
+nnoremap <space>gpl :Dispatch! git pull<CR>
+
+let g:fugitive_bitbucket_domains = ['bitbucket.thefloow.com']
+
+" ==============================================================
+"                          RUBY SPECIFIC SETTINGS
+" ==============================================================
+
+" ruby path if you are using rbenv
+let g:ruby_path = system('echo $HOME/.rbenv/shims')
+
+" Auto complete Ruby
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
+" RSpec.vim mappings
+nnoremap <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
+nnoremap <Leader>s :w<cr>:call RunNearestSpec()<CR>
+nnoremap <Leader>l :w<cr>:call RunLastSpec()<CR>
+nnoremap <Leader>a :w<cr>:call RunAllSpecs()<CR>
+nnoremap <Leader>a :w<cr>:call RunAllSpecs()<CR>
+
+" send rspec commands to tmux
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+" let g:rspec_command = "Dispatch rspec {spec}"
+
+" macro to add frozen string literal comment to top of ruby files
+let @f = 'ggO# frozen_string_literal: true'
+
+" ==============================================================
+"                          ELIXIR SPECIFIC SETTINGS
+" ==============================================================
+
+" ExTest.vim mappings
+" map <Leader>t :call RunCurrentTestFile()<CR>
+" map <Leader>t :call RunFileSpecs()<CR>
+" map <Leader>s :call RunNearestTest()<CR>
+" map <Leader>l :call RunLastTest()<CR>
+" map <Leader>a :call RunAllTests()<CR>
