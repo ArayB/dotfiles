@@ -21,3 +21,6 @@ git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git ~/.solar
 cd ~/.solarized
 ./install.sh
 ```
+
+Add [Hanami oh-mh-zsh plugin](https://github.com/davydovanton/hanami-zsh)
+
