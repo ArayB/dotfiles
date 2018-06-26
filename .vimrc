@@ -37,7 +37,6 @@ Plugin 'elixir-editors/vim-elixir'
 Plugin 'machakann/vim-highlightedyank'
 Plugin 'Townk/vim-autoclose'
 Plugin 'w0rp/ale'
-Plugin 'Yggdroot/indentLine'
 
 " HTML stuff
 Plugin 'alvan/vim-closetag'
@@ -125,7 +124,6 @@ map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
 map <leader>b :bu<space>
 
-
 " ==============================================================
 "                    NERDCOMMENTER
 " ==============================================================
@@ -183,6 +181,8 @@ let g:ale_fixers = {
 \   'markdown': ['write-good'],
 \}
 
+map <leader>f :ALEFix<cr>
+
 " ==============================================================
 "                          FUGITIVE
 " ==============================================================
@@ -232,6 +232,28 @@ let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 " macro to add frozen string literal comment to top of ruby files
 let @f = 'ggO# frozen_string_literal: true'
 
+let g:rails_projections = {
+      \ "app/lib/*.rb": {
+      \   "test": [
+      \     "test/lib/{}_test.rb",
+      \     "spec/lib/{}_spec.rb"
+      \   ]
+      \ }
+      \}
+
+let g:projectionist_heuristics = {
+      \ "*": {
+      \  "apps/*.rb": {
+      \    "alternate": "spec/{}_spec.rb",
+      \    "type": "source"
+      \  },
+      \  "spec/*_spec.rb": {
+      \    "alternate": "apps/{}.rb",
+      \    "type": "test"
+      \  }
+      \ }
+      \}
+
 " ==============================================================
 "                          ELIXIR SPECIFIC SETTINGS
 " ==============================================================
@@ -242,3 +264,4 @@ let @f = 'ggO# frozen_string_literal: true'
 " map <Leader>s :call RunNearestTest()<CR>
 " map <Leader>l :call RunLastTest()<CR>
 " map <Leader>a :call RunAllTests()<CR>
+"
