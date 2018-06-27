@@ -47,6 +47,7 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'jparise/vim-graphql'
 
 Plugin 'pangloss/vim-javascript'
+Plugin 'janko-m/vim-test'
 
 call vundle#end()
 
@@ -219,11 +220,19 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 " RSpec.vim mappings
-nnoremap <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :w<cr>:call RunNearestSpec()<CR>
-nnoremap <Leader>l :w<cr>:call RunLastSpec()<CR>
-nnoremap <Leader>a :w<cr>:call RunAllSpecs()<CR>
-nnoremap <Leader>a :w<cr>:call RunAllSpecs()<CR>
+nnoremap <leader>t :w<cr>:call RunCurrentSpecFile()<CR>
+nnoremap <leader>s :w<cr>:call RunNearestSpec()<CR>
+nnoremap <leader>l :w<cr>:call RunLastSpec()<CR>
+nnoremap <leader>a :w<cr>:call RunAllSpecs()<CR>
+
+" Use vim-test to run minitest specs
+nnoremap <leader>mt :TestFile<CR>
+nnoremap <leader>ms :TestNearest<CR>
+nnoremap <leader>ma :TestSuite<CR>
+nnoremap <leader>ml :TestLast<CR>
+nnoremap <leader>mv :TestVisit<CR>
+
+let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
 " send rspec commands to tmux
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
