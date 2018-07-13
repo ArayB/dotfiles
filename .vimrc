@@ -205,12 +205,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-" RSpec.vim mappings
-" nnoremap <leader>t :w<cr>:call RunCurrentSpecFile()<cr>
-" nnoremap <leader>s :w<cr>:call RunNearestSpec()<cr>
-" nnoremap <leader>l :w<cr>:call RunLastSpec()<cr>
-" nnoremap <leader>a :w<cr>:call RunAllSpecs()<cr>
-
 nnoremap <leader>t :w<cr>:TestFile<cr>
 nnoremap <leader>s :w<cr>:TestNearest<cr>
 nnoremap <leader>a :w<cr>:TestSuite<cr>
@@ -218,10 +212,6 @@ nnoremap <leader>l :w<cr>:TestLast<cr>
 nnoremap <leader>v :w<cr>:TestVisit<cr>
 let test#strategy = "neovim"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
-
-" send rspec commands to tmux
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-" let g:rspec_command = "Dispatch rspec {spec}"
 
 " macro to add frozen string literal comment to top of ruby files
 let @f = 'ggO# frozen_string_literal: true'
@@ -248,18 +238,6 @@ let g:projectionist_heuristics = {
       \ }
       \}
 
-" ==============================================================
-"                          ELIXIR SPECIFIC SETTINGS
-" ==============================================================
-
-" ExTest.vim mappings
-" map <Leader>t :call RunCurrentTestFile()<CR>
-" map <Leader>t :call RunFileSpecs()<CR>
-" map <Leader>s :call RunNearestTest()<CR>
-" map <Leader>l :call RunLastTest()<CR>
-" map <Leader>a :call RunAllTests()<CR>
-
-
 
 " ==============================================================
 "                          VIM SNIPPETS SETTINGS
@@ -267,6 +245,7 @@ let g:projectionist_heuristics = {
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<C-tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 

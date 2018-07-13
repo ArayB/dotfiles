@@ -3,3 +3,11 @@ snippet frz
 
 $0
 endsnippet
+
+snippet rsp
+require 'rails_helper'
+
+RSpec.describe $1, type: :$2 do
+  $0
+end
+endsnippet
