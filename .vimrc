@@ -7,17 +7,11 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'thoughtbot/vim-rspec'
 Plugin 'ctrlpvim/ctrlp.vim'
-
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
-
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'jgdavey/tslime.vim'
-
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
@@ -26,28 +20,20 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-bundler'
-
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tommcdo/vim-fubitive'
-
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ervandew/supertab'
 Plugin 'elixir-editors/vim-elixir'
-" Plugin 'moofish32/vim-ex_test'
 Plugin 'machakann/vim-highlightedyank'
 Plugin 'Townk/vim-autoclose'
 Plugin 'w0rp/ale'
-
-" HTML stuff
 Plugin 'alvan/vim-closetag'
-
 Plugin 'christoomey/vim-tmux-navigator'
-
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'jparise/vim-graphql'
-
 Plugin 'pangloss/vim-javascript'
 Plugin 'janko-m/vim-test'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
@@ -220,19 +206,18 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 " RSpec.vim mappings
-nnoremap <leader>t :w<cr>:call RunCurrentSpecFile()<CR>
-nnoremap <leader>s :w<cr>:call RunNearestSpec()<CR>
-nnoremap <leader>l :w<cr>:call RunLastSpec()<CR>
-nnoremap <leader>a :w<cr>:call RunAllSpecs()<CR>
+" nnoremap <leader>t :w<cr>:call RunCurrentSpecFile()<cr>
+" nnoremap <leader>s :w<cr>:call RunNearestSpec()<cr>
+" nnoremap <leader>l :w<cr>:call RunLastSpec()<cr>
+" nnoremap <leader>a :w<cr>:call RunAllSpecs()<cr>
 
-" Use vim-test to run minitest specs
-nnoremap <leader>mt :TestFile<CR>
-nnoremap <leader>ms :TestNearest<CR>
-nnoremap <leader>ma :TestSuite<CR>
-nnoremap <leader>ml :TestLast<CR>
-nnoremap <leader>mv :TestVisit<CR>
-
-let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
+nnoremap <leader>t :w<cr>:TestFile<cr>
+nnoremap <leader>s :w<cr>:TestNearest<cr>
+nnoremap <leader>a :w<cr>:TestSuite<cr>
+nnoremap <leader>l :w<cr>:TestLast<cr>
+nnoremap <leader>v :w<cr>:TestVisit<cr>
+let test#strategy = "neovim"
+" let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
 " send rspec commands to tmux
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
@@ -273,4 +258,20 @@ let g:projectionist_heuristics = {
 " map <Leader>s :call RunNearestTest()<CR>
 " map <Leader>l :call RunLastTest()<CR>
 " map <Leader>a :call RunAllTests()<CR>
-"
+
+
+
+" ==============================================================
+"                          VIM SNIPPETS SETTINGS
+" ==============================================================
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips/"
+let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/", "UltiSnips"]

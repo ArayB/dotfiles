@@ -11,7 +11,9 @@ Exuberant Ctags
 ## Installation
 
 Clone the repo into a folder `.dotfiles`
+
 Create symbolic links for the relevant files in that folder to the root folder.
+`% ln -s ~/.dotfiles/UltiSnips ~/.vim/UltiSnips`
 
 Create symbolic link for `init.vim` in `~/.config/nvim` to use Neovim
 
