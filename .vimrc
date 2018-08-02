@@ -10,7 +10,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+" Plugin 'xolox/vim-easytags'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
@@ -31,9 +32,12 @@ Plugin 'w0rp/ale'
 Plugin 'alvan/vim-closetag'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 Plugin 'janko-m/vim-test'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'mattn/emmet-vim'
+Plugin 'skywind3000/asyncrun.vim'
 
 call vundle#end()
 
@@ -104,6 +108,9 @@ function! TrimWhiteSpace()
 endfunction
 autocmd BufWritePre * :call TrimWhiteSpace()
 
+" Disable comments automatically continuing on next line if press return
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 map <leader>w :w<cr>
 map <leader>fs :w<cr>
 map <leader>q :q<cr>
@@ -166,9 +173,14 @@ let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \   'javascript': ['prettier'],
 \   'markdown': ['write-good'],
+\   'erb': ['erb'],
 \}
 
 map <leader>f :ALEFix<cr>
+
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 
 " ==============================================================
 "                          FUGITIVE
@@ -254,3 +266,22 @@ let g:UltiSnipsEditSplit="vertical"
 
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips/"
 let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/", "UltiSnips"]
+
+" ==============================================================
+"                     EMMET SETTINGS
+" ==============================================================
+
+let g:user_emmet_leader_key='<c-m>'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,scss,eruby EmmetInstall
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+  \      'extends' : 'jsx',
+  \  },
+  \}
+
+" ==============================================================
+"                     JAVASCRIPT SETTINGS
+" ==============================================================
+
+autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
