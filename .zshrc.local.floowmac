@@ -1,5 +1,6 @@
 export ZSH=/Users/anthony.barnes/.oh-my-zsh
 
+export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
 export PATH="/usr/local/opt/qt@5.5/bin:$PATH"

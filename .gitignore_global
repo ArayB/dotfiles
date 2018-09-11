@@ -10,6 +10,8 @@ TAGS
 git_stats
 /coverage
 /target
+tags.lock
+tags.temp
 
 .projections.json
 

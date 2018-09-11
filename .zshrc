@@ -54,7 +54,7 @@ ZSH_THEME="af-magic"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails bundler vi-mode hanami)
+plugins=(git rails bundler vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,11 +90,11 @@ source $ZSH/oh-my-zsh.sh
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # export PATH="$HOME/.rbenv/shims:$PATH"
 
-prompt_context() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)ant"
-  fi
-}
+# prompt_context() {
+#   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+#     prompt_segment black default "%(!.%{%F{yellow}%}.)ant"
+#   fi
+# }
 
 # start typing + [Up-Arrow] - fuzzy find history forward
 if [[ "${terminfo[kcuu1]}" != "" ]]; then

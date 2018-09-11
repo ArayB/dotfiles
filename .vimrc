@@ -38,6 +38,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
 Plugin 'skywind3000/asyncrun.vim'
+Plugin 'slim-template/vim-slim.git'
 
 call vundle#end()
 
