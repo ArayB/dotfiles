@@ -26,3 +26,4 @@ cd ~/.solarized
 
 Add [Hanami oh-mh-zsh plugin](https://github.com/davydovanton/hanami-zsh)
 
+Create symbolic link for `~/.dotfiles/ohmyzshthemes/themes` to `~/.oh-my-zsh/custom/`

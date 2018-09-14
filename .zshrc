@@ -10,7 +10,9 @@
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="bira"
 # ZSH_THEME="kolo"
-ZSH_THEME="af-magic"
+# ZSH_THEME="af-magic"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+DEFAULT_USER="anthony.barnes"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

@@ -6,11 +6,14 @@ set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" Airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'xolox/vim-misc'
-" Plugin 'xolox/vim-easytags'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-fugitive'
@@ -39,6 +42,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'slim-template/vim-slim.git'
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 
@@ -46,6 +50,16 @@ call vundle#end()
 " END VUNDLE
 " =================================================
 
+" =================================================
+" VIM AIRLINE
+" =================================================
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
+" -------------------------------------------------
 syntax on
 filetype on
 filetype indent on
@@ -286,3 +300,9 @@ let g:user_emmet_settings = {
 " ==============================================================
 
 autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+
+" ==============================================================
+"                     EDITORCONFIG SETTINGS
+" ==============================================================
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
