@@ -24,6 +24,10 @@ cd ~/.solarized
 ./install.sh
 ```
 
+Once `.gitignore_global` is symlinked add it to git config.
+
+`git config --global core.excludesfile '~/.gitignore_global'`
+
 Add [Hanami oh-mh-zsh plugin](https://github.com/davydovanton/hanami-zsh)
 
 Create symbolic link for `~/.dotfiles/ohmyzshthemes/themes` to `~/.oh-my-zsh/custom/`

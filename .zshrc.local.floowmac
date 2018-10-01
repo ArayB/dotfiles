@@ -8,3 +8,13 @@ export GTAGSLABEL=ctags
 
 export EDITOR='nvim'
 export BUNDLER_EDITOR='nvim'
+
+
+alias sqax1="ssh portal-web1.qax.ie.aws.thefloow.net"
+alias sqax2="ssh portal-web2.qax.ie.aws.thefloow.net"
+alias sde2="ssh portal-tct1.de2.shf.ost.thefloow.net"
+alias sde3="ssh portal-tct1.de3.shf.ost.thefloow.net"
+alias sdev3="ssh -p22 dev3"
+alias sqfb="ssh portal-fb1.qax.ie.aws.thefloow.net"
+alias sqff="ssh portal-ff1.qax.ie.aws.thefloow.net"
+alias sqab="sh turnkey-adb1.qax.ie.aws.thefloow.net"

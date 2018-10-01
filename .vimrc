@@ -6,43 +6,46 @@ set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'VundleVim/Vundle.vim'
+
 " Airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'xolox/vim-misc'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'jgdavey/tslime.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tommcdo/vim-fubitive'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'ervandew/supertab'
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'machakann/vim-highlightedyank'
-Plugin 'Townk/vim-autoclose'
-Plugin 'w0rp/ale'
-Plugin 'alvan/vim-closetag'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'janko-m/vim-test'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'mattn/emmet-vim'
-Plugin 'skywind3000/asyncrun.vim'
-Plugin 'slim-template/vim-slim.git'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'ervandew/supertab'
+Plugin 'honza/vim-snippets'
+Plugin 'janko-m/vim-test'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'machakann/vim-highlightedyank'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'skywind3000/asyncrun.vim'
+Plugin 'w0rp/ale'
+
+" auto close ({[ etc.
+Plugin 'Townk/vim-autoclose'
+" auto close x/html tags
+Plugin 'alvan/vim-closetag'
+
+" The Tim Pope collection
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+
+" Language/templating/framework plugins
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'elmcast/elm-vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript'
+Plugin 'slim-template/vim-slim.git'
+Plugin 'tpope/vim-rails'
 
 call vundle#end()
 
@@ -127,11 +130,11 @@ autocmd BufWritePre * :call TrimWhiteSpace()
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 map <leader>w :w<cr>
-map <leader>fs :w<cr>
 map <leader>q :q<cr>
-map <leader>qq :q<cr>
 map <leader>bd :bd<cr>
 map <leader>b :bu<space>
+map <leader>n :bn<cr>
+map <leader>p :bp<cr>
 
 " ==============================================================
 "                    NERDCOMMENTER
@@ -188,14 +191,19 @@ let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \   'javascript': ['prettier'],
 \   'markdown': ['write-good'],
-\   'erb': ['erb'],
+\   'erb': ['erb']
 \}
 
-map <leader>f :ALEFix<cr>
+" phoenix code reloading doesn't work without this
+let g:ale_linters = {
+\   'elixir': ['mix']
+\}
 
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+
+map <leader>f :ALEFix<cr>
 
 " ==============================================================
 "                          FUGITIVE
@@ -306,3 +314,15 @@ autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --
 " ==============================================================
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" ==============================================================
+"                     ELM SETTINGS
+" ==============================================================
+
+ let g:elm_setup_keybindings = 0
+
+
+" ==============================================================
+"                     GUTENTAGS SETTINGS
+" ==============================================================
+ let g:gutentags_define_advanced_commands = 1
