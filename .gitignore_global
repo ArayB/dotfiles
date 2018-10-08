@@ -12,6 +12,7 @@ git_stats
 /target
 tags.lock
 tags.temp
+scratch.*
 
 .projections.json
 

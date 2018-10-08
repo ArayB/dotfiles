@@ -1,56 +1,60 @@
-" =================================================
-" VUNDLE
-" =================================================
 set nocompatible
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" =================================================
+" PLUG
+" =================================================
 
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'jremmen/vim-ripgrep'
+
+Plug 'mg979/vim-visual-multi'
 " Airline
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-Plugin 'SirVer/ultisnips'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'ervandew/supertab'
-Plugin 'honza/vim-snippets'
-Plugin 'janko-m/vim-test'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'machakann/vim-highlightedyank'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'skywind3000/asyncrun.vim'
-Plugin 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+Plug 'christoomey/vim-tmux-navigator'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
+Plug 'janko-m/vim-test'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'machakann/vim-highlightedyank'
+Plug 'scrooloose/nerdcommenter'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'w0rp/ale'
 
 " auto close ({[ etc.
-Plugin 'Townk/vim-autoclose'
+Plug 'Townk/vim-autoclose'
 " auto close x/html tags
-Plugin 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag'
 
 " The Tim Pope collection
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 
 " Language/templating/framework plugins
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'elmcast/elm-vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'mxw/vim-jsx'
-Plugin 'pangloss/vim-javascript'
-Plugin 'slim-template/vim-slim.git'
-Plugin 'tpope/vim-rails'
+Plug 'elixir-editors/vim-elixir'
+Plug 'elmcast/elm-vim'
+Plug 'mattn/emmet-vim'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'slim-template/vim-slim'
+Plug 'tpope/vim-rails'
 
-call vundle#end()
+call plug#end()
 
 " =================================================
-" END VUNDLE
+" END PLUG
 " =================================================
 
 " =================================================
@@ -58,7 +62,10 @@ call vundle#end()
 " =================================================
 
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+
+" TODO remove this?
+" disable the tabline
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
@@ -73,6 +80,7 @@ set clipboard=unnamedplus
 colorscheme slate
 set backspace=2
 set autowrite
+set splitright
 
 " no bloody beeping
 set noerrorbells visualbell t_vb=
@@ -95,8 +103,6 @@ let &colorcolumn="80,".join(range(120,999),",")
 set list listchars=tab:»·,trail:·,nbsp:·
 setlocal list listchars=tab:»·,trail:·,nbsp:·
 
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
@@ -105,12 +111,6 @@ set nojoinspaces
 set nu
 set rnu
 
-" arrows for buffer  nav
-nnoremap <right> :bn<cr>
-nnoremap <left> :bp<cr>
-
-" gd to go to tag definition
-:nnoremap gd <C-]>
 
 set history=50  " Number of things to remember in history.
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
@@ -129,12 +129,6 @@ autocmd BufWritePre * :call TrimWhiteSpace()
 " Disable comments automatically continuing on next line if press return
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-map <leader>w :w<cr>
-map <leader>q :q<cr>
-map <leader>bd :bd<cr>
-map <leader>b :bu<space>
-map <leader>n :bn<cr>
-map <leader>p :bp<cr>
 
 " ==============================================================
 "                    NERDCOMMENTER
@@ -150,27 +144,14 @@ let g:NERDTrimTrailingWhitespace = 1
 
 
 " ==============================================================
-"                    SILVER SEARCHER
+"                    RIPGREP
 " ==============================================================
 
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
 " bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Rg <C-R><C-W><CR>
 
 " bind \ (backward slash) to grep shortcut
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<SPACE>
+nnoremap \ :Rg<SPACE>
 
 
 " ==============================================================
@@ -180,7 +161,6 @@ nnoremap \ :Ag<SPACE>
 " Hide banner, uncomment this once used to commands?
 " let g:netrw_banner = 0
 
-map <leader>e :Explore<cr>
 
 " ==============================================================
 "                          ALE
@@ -203,7 +183,6 @@ let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 
-map <leader>f :ALEFix<cr>
 
 " ==============================================================
 "                          FUGITIVE
@@ -240,11 +219,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-nnoremap <leader>t :w<cr>:TestFile<cr>
-nnoremap <leader>s :w<cr>:TestNearest<cr>
-nnoremap <leader>a :w<cr>:TestSuite<cr>
-nnoremap <leader>l :w<cr>:TestLast<cr>
-nnoremap <leader>v :w<cr>:TestVisit<cr>
 let test#strategy = "neovim"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
@@ -326,3 +300,33 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 "                     GUTENTAGS SETTINGS
 " ==============================================================
  let g:gutentags_define_advanced_commands = 1
+
+
+" ==============================================================
+"                     LEADER/MAPPINGS
+" ==============================================================
+
+map <leader>r :ALEFix<cr>
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+map <leader>w :w<cr>
+map <leader>q :q<cr>
+map <leader>bd :bd<cr>
+map <leader>b :bu<space>
+map <leader>n :bn<cr>
+map <leader>p :bp<cr>
+map <leader>f :Files<cr>
+map <leader>e :Explore<cr>
+nnoremap <leader>t :w<cr>:TestFile<cr>
+nnoremap <leader>s :w<cr>:TestNearest<cr>
+nnoremap <leader>a :w<cr>:TestSuite<cr>
+nnoremap <leader>l :w<cr>:TestLast<cr>
+nnoremap <leader>v :w<cr>:TestVisit<cr>
+
+" arrows for buffer  nav
+nnoremap <right> :bn<cr>
+nnoremap <left> :bp<cr>
+nnoremap <C-p> :Files<cr>
+
+" gd to go to tag definition
+:nnoremap gd <C-]>
