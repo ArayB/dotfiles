@@ -5,8 +5,11 @@
 Exuberant Ctags
 
 [Powerline friendly fonts](https://github.com/powerline/fonts)
+
 [Vim-Plug](https://github.com/junegunn/vim-plug)
+
 [RipGrep](https://github.com/BurntSushi/ripgrep)
+
 [fzf](https://github.com/junegunn/fzf)
 
 ## Installation
