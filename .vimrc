@@ -8,8 +8,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" Plug 'jremmen/vim-ripgrep'
 
-Plug 'jremmen/vim-ripgrep'
+" Automatically deal with swap file warnings
+Plug 'gioele/vim-autoswap'
 
 Plug 'mg979/vim-visual-multi'
 " Airline
@@ -18,14 +20,12 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-navigator'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'janko-m/vim-test'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'machakann/vim-highlightedyank'
 Plug 'scrooloose/nerdcommenter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
@@ -222,8 +222,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 let test#strategy = "neovim"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
-" macro to add frozen string literal comment to top of ruby files
-let @f = 'ggO# frozen_string_literal: true'
 
 let g:rails_projections = {
       \ "app/lib/*.rb": {
@@ -315,7 +313,7 @@ map <leader>bd :bd<cr>
 map <leader>b :bu<space>
 map <leader>n :bn<cr>
 map <leader>p :bp<cr>
-map <leader>f :Files<cr>
+map <leader>f :ALEFix<cr>
 map <leader>e :Explore<cr>
 nnoremap <leader>t :w<cr>:TestFile<cr>
 nnoremap <leader>s :w<cr>:TestNearest<cr>
@@ -330,3 +328,13 @@ nnoremap <C-p> :Files<cr>
 
 " gd to go to tag definition
 :nnoremap gd <C-]>
+
+" ==============================================================
+"                     MACROS
+" ==============================================================
+
+" add frozen string literal comment to top of ruby files
+let @f = 'ggO# frozen_string_literal: true'
+
+" add binding.pry on line above
+let@p = 'Obinding.pry'
