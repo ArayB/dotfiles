@@ -34,6 +34,8 @@ Plug 'Townk/vim-autoclose'
 " auto close x/html tags
 Plug 'alvan/vim-closetag'
 
+Plug 'adelarsq/vim-matchit'
+
 " The Tim Pope collection
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -60,7 +62,8 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
-colorscheme slate
+set background=dark
+colorscheme solarized
 
 let mapleader = " "
 set clipboard=unnamedplus
@@ -283,9 +286,6 @@ nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
 nnoremap <C-p> :Files<cr>
 nnoremap gd <C-]>
-" use : much more than ; so remap to save having to use <shift>; every time I want to run a command
-nnoremap ; :
-nnoremap : ;
 
 nnoremap <leader>g :e Gemfile<cr>
 
