@@ -85,7 +85,7 @@ set hidden " keeps buffers in memory when not in view, preserves history, marks 
 set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
 setlocal list listchars=tab:»·,trail:·,nbsp:·
 set history=50  " Number of things to remember in history.
-set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
+set timeoutlen=500
 set backup                     " Enable creation of backup file.
 set backupdir=~/.dotfiles/vim/backups " Where backups will go.
 set directory=~/.dotfiles/vim/tmp     " Where temporary files will go.
@@ -135,7 +135,8 @@ let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \   'javascript': ['prettier'],
 \   'markdown': ['write-good'],
-\   'erb': ['erb']
+\   'erb': ['erb'],
+\   'elixir': ['mix_format']
 \}
 
 " phoenix code reloading doesn't work without this
@@ -182,6 +183,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let test#strategy = "neovim"
+let test#neovim#term_position = "vertical topleft split"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
 let g:rails_projections = {
@@ -263,6 +265,13 @@ let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
 
+" =================================================
+"                     SUPERTAB SETTINGS
+" =================================================
+" attempt to determine which completion type to use based on input
+let g:SuperTabDefaultCompletionType = "context"
+
+
 " ==============================================================
 "                     LEADER/MAPPINGS
 " ==============================================================
@@ -287,11 +296,15 @@ nnoremap <left> :bp<cr>
 nnoremap <C-p> :Files<cr>
 nnoremap gd <C-]>
 
-nnoremap <leader>g :e Gemfile<cr>
-
-" Rails leader mappings
+" Ruby/Rails leader mappings
+nnoremap <leader>rg :e Gemfile<cr>
 nnoremap <leader>rr :e config/routes.rb<cr>
+nnoremap <leader>rd :e config/database.yml<cr>
 
+" when using nvim map Ctrl-o to come out of insert mode in terminal
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
 
 " ==============================================================
 "                     MACROS
