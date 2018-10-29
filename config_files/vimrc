@@ -28,14 +28,12 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdcommenter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
-
 " auto close ({[ etc.
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
 " auto close x/html tags
 Plug 'alvan/vim-closetag'
 
 Plug 'adelarsq/vim-matchit'
-
 " The Tim Pope collection
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -95,10 +93,10 @@ highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
 
 " Auto trim whitespace on save
-function! TrimWhiteSpace()
-  %s/\s\+$//e
-endfunction
-autocmd BufWritePre * :call TrimWhiteSpace()
+" function! TrimWhiteSpace()
+"   %s/\s\+$//e
+" endfunction
+" autocmd BufWritePre * :call TrimWhiteSpace()
 
 " Disable comments automatically continuing on next line if press return
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -130,8 +128,9 @@ nnoremap \ :Rg<SPACE>
 "                          ALE
 " ==============================================================
 highlight ALEWarning ctermbg=Black
-
+let g:ale_fix_on_save = 1
 let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'ruby': ['rubocop'],
 \   'javascript': ['prettier'],
 \   'markdown': ['write-good'],
@@ -283,7 +282,6 @@ nnoremap <leader>bd :bd<cr>
 nnoremap <leader>b :bu<space>
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
-nnoremap <leader>f :ALEFix<cr>
 nnoremap <leader>e :Explore<cr>
 nnoremap <leader>t :w<cr>:TestFile<cr>
 nnoremap <leader>s :w<cr>:TestNearest<cr>
@@ -306,6 +304,10 @@ if has('nvim')
   tmap <C-o> <C-\><C-n>
 endif
 
+" ALE leader mappings
+nnoremap <leader>af :ALEFix<cr>
+nnoremap <leader>an :ALENext<cr>
+nnoremap <leader>ap :ALEPrevious<cr>
 " ==============================================================
 "                     MACROS
 " ==============================================================
