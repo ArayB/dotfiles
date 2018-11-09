@@ -32,3 +32,12 @@ Run the rake task to create symlinks etc:
 
 Add [Hanami oh-mh-zsh plugin](https://github.com/davydovanton/hanami-zsh)
 
+### Other cool things to install
+
+[bat](https://github.com/sharkdp/bat)
+[autojump](https://github.com/wting/autojump)
+
+### Other things that need to be present
+
+Python 3 and pip3 (Python version > 3.5)
+`pip3 install neovim` for deoplete to work

@@ -6,6 +6,15 @@ set nocompatible
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+if has('nvim')
+ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+ Plug 'Shougo/deoplete.nvim'
+ Plug 'roxma/nvim-yarp'
+ Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'fishbullet/deoplete-ruby'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -21,25 +30,30 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'janko-m/vim-test'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'ludovicchabant/vim-gutentags'
+
 Plug 'scrooloose/nerdcommenter'
+
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
+
 " auto close ({[ etc.
 "Plug 'Townk/vim-autoclose'
 " auto close x/html tags
 Plug 'alvan/vim-closetag'
-
 Plug 'adelarsq/vim-matchit'
+
+
 " The Tim Pope collection
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dispatch'
 
 " Language/templating/framework plugins
 Plug 'elixir-editors/vim-elixir'
@@ -49,6 +63,8 @@ Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-rails'
+Plug 'c-brenn/phoenix.vim'
+Plug 'slashmili/alchemist.vim'
 
 call plug#end()
 
@@ -72,8 +88,7 @@ set title titlestring=
 set nojoinspaces " Use one space, not two, after punctuation.
 set nu
 set rnu
-" no bloody beeping
-set noerrorbells visualbell t_vb=
+set noerrorbells visualbell t_vb= " no bloody beeping
 autocmd GUIEnter * set visualbell t_vb=
 set tabstop=2
 set shiftwidth=2
@@ -92,6 +107,7 @@ set directory=~/.dotfiles/vim/tmp     " Where temporary files will go.
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
 
+"" Using Ale to do this instead.
 " Auto trim whitespace on save
 " function! TrimWhiteSpace()
 "   %s/\s\+$//e
@@ -101,6 +117,11 @@ call matchadd('ColorColumn', '\%81v', 100)
 " Disable comments automatically continuing on next line if press return
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+
+" ==============================================================
+"                    DEOPLETE
+" ==============================================================
+let g:deoplete#enable_at_startup = 1
 
 " ==============================================================
 "                    NERDCOMMENTER
@@ -118,6 +139,13 @@ nnoremap \ :Rg<SPACE>
 
 
 " ==============================================================
+"                    ALCHEMIST
+" ==============================================================
+let g:alchemist_keyword_map = '-'
+" let g:alchemist_keyword_map = '<leader>K'
+let g:alchemist_tag_disable = 1
+
+" ==============================================================
 "                          NETRW
 " ==============================================================
 " Hide banner, uncomment this once used to commands?
@@ -133,7 +161,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'ruby': ['rubocop'],
 \   'javascript': ['prettier'],
-\   'markdown': ['write-good'],
+\   'markdown': ['prettier'],
 \   'erb': ['erb'],
 \   'elixir': ['mix_format']
 \}
@@ -149,26 +177,6 @@ let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 
 
 " ==============================================================
-"                          FUGITIVE
-" ==============================================================
-nnoremap <space>ga :Git add %:p<CR><CR>
-nnoremap <space>gs :Gstatus<CR>
-" nnoremap <space>gc :Gcommit -v -q<CR>
-nnoremap <space>gc :Dispatch git commit<CR>
-" nnoremap <space>gt :Gcommit -v -q %:p<CR>
-" nnoremap <space>gd :Gdiff<CR>
-nnoremap <space>ge :Gedit<CR>
-nnoremap <space>gr :Gread<CR>
-nnoremap <space>gw :Gwrite<CR><CR>
-" nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
-nnoremap <space>gp :Ggrep<Space>
-nnoremap <space>gm :Gmove<Space>
-nnoremap <space>gb :Git branch<Space>
-nnoremap <space>go :Git checkout<Space>
-nnoremap <space>gps :Dispatch! git push<CR>
-nnoremap <space>gpl :Dispatch! git pull<CR>
-
-" ==============================================================
 "                          RUBY SPECIFIC SETTINGS
 " ==============================================================
 
@@ -182,7 +190,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 let test#strategy = "neovim"
-let test#neovim#term_position = "vertical topleft split"
+" let test#neovim#term_position = "vertical topleft split"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
 let g:rails_projections = {
@@ -196,14 +204,10 @@ let g:rails_projections = {
 
 let g:projectionist_heuristics = {
       \ "*": {
-      \  "apps/*.rb": {
-      \    "alternate": "spec/{}_spec.rb",
-      \    "type": "source"
-      \  },
-      \  "spec/*_spec.rb": {
-      \    "alternate": "apps/{}.rb",
-      \    "type": "test"
-      \  }
+      \  "apps/*.rb": { "alternate": "spec/{}_spec.rb", "type": "source" },
+      \  "spec/*_spec.rb": { "alternate": "apps/{}.rb", "type": "test" },
+      \  "lib/*.ex": {"alternate": "test/{}_test.exs", "type": "source" },
+      \  "test/*_test.exs": { "alternate": "lib/{}.ex", "type": "test" }
       \ }
       \}
 
@@ -278,19 +282,13 @@ let g:SuperTabDefaultCompletionType = "context"
 nnoremap <leader><leader> <c-^>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
-nnoremap <leader>bd :bd<cr>
-nnoremap <leader>b :bu<space>
-nnoremap <leader>n :bn<cr>
-nnoremap <leader>p :bp<cr>
-nnoremap <leader>e :Explore<cr>
+
 nnoremap <leader>t :w<cr>:TestFile<cr>
 nnoremap <leader>s :w<cr>:TestNearest<cr>
 nnoremap <leader>a :w<cr>:TestSuite<cr>
 nnoremap <leader>l :w<cr>:TestLast<cr>
 nnoremap <leader>v :w<cr>:TestVisit<cr>
-" arrows for buffer  nav
-nnoremap <right> :bn<cr>
-nnoremap <left> :bp<cr>
+
 nnoremap <C-p> :Files<cr>
 nnoremap gd <C-]>
 
@@ -304,10 +302,46 @@ if has('nvim')
   tmap <C-o> <C-\><C-n>
 endif
 
+" buffer mappings
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bda :%bd<cr>
+nnoremap <leader>b :bu<space>
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bp :bp<cr>
+
 " ALE leader mappings
 nnoremap <leader>af :ALEFix<cr>
 nnoremap <leader>an :ALENext<cr>
 nnoremap <leader>ap :ALEPrevious<cr>
+
+" Netrw mappings
+nnoremap <leader>e :Explore<cr>
+nnoremap <leader>er :e.<cr>
+nnoremap <leader>ev :Vex<cr>
+nnoremap <leader>es :Sex<cr>
+nnoremap <leader>evr :vs.<cr>
+nnoremap <leader>esr :sp.<cr>
+
+" Fugitive mappings
+nnoremap <leader>ga :Git add %:p<cr><cr>
+nnoremap <leader>gs :Gstatus<cr>
+" nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gc :Dispatch git commit<cr>
+" nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<cr>
+nnoremap <leader>gr :Gread<cr>
+nnoremap <leader>gw :Gwrite<cr><cr>
+" nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<cr>
+nnoremap <leader>gpl :Dispatch! git pull<cr>
+nnoremap <leader>gl :Gblame<cr>
+nnoremap <leader>grm :Gremove<cr>
+
 " ==============================================================
 "                     MACROS
 " ==============================================================
