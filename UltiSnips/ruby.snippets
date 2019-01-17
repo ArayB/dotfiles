@@ -13,3 +13,11 @@ endsnippet
 snippet bp
 binding.pry
 endsnippet
+
+snippet rsp
+require 'rspec'
+
+RSpec.describe $1, type: :$2 do
+  $0
+end
+endsnippet

@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 # export ZSH=/Users/anthony.barnes/.oh-my-zsh
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.zshrc.keys ]] && source ~/.zshrc.keys
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -145,5 +146,3 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-# get this moved into a keys zshrc
-export HOMEBREW_GITHUB_API_TOKEN=6f1041c1984780f9d558ddd818818f277b6aadc3
