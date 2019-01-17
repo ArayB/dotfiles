@@ -145,3 +145,5 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+# get this moved into a keys zshrc
+export HOMEBREW_GITHUB_API_TOKEN=6f1041c1984780f9d558ddd818818f277b6aadc3

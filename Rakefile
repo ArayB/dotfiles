@@ -2,6 +2,7 @@ require 'rake'
 
 desc "install the dot files into user's home directory"
 task :install do
+	puts "Ruby version: #{RUBY_VERSION}"
   replace_all = false
   Dir.each_child('config_files') do |file|
     next if %w[init.vim sass-lint.yml].include? file

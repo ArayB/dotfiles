@@ -1,0 +1,8 @@
+export ZSH=/Users/anthonybarnes/.oh-my-zsh
+
+export PATH="/usr/local/bin:$PATH"
+# export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
+export GTAGSLABEL=ctags
+
+export EDITOR='nvim'
+export BUNDLER_EDITOR='nvim'
