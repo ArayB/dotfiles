@@ -35,8 +35,11 @@ Add [Hanami oh-mh-zsh plugin](https://github.com/davydovanton/hanami-zsh)
 ### Other cool things to install
 
 [bat](https://github.com/sharkdp/bat) `brew install bat`
+
 [autojump](https://github.com/wting/autojump) `brew install autojump`
+
 [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy) `brew install diff-so-fancy`
+
 ```
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 
