@@ -67,6 +67,8 @@ Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-rails'
 Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'
+Plug 'posva/vim-vue'
+Plug 'jimmyhchan/dustjs.vim'
 
 call plug#end()
 
@@ -78,8 +80,6 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
-set background=dark
-colorscheme solarized
 
 let mapleader = " "
 set clipboard=unnamedplus
@@ -111,21 +111,9 @@ set noswapfile
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
 
-"" Using Ale to do this instead.
-" Auto trim whitespace on save
-" function! TrimWhiteSpace()
-"   %s/\s\+$//e
-" endfunction
-" autocmd BufWritePre * :call TrimWhiteSpace()
+" disable comments automatically continuing on next line if press return
+autocmd filetype * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Disable comments automatically continuing on next line if press return
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-
-" ==============================================================
-"                    DEOPLETE
-" ==============================================================
-" let g:deoplete#enable_at_startup = 1
 
 " ==============================================================
 "                    NERDCOMMENTER
@@ -133,7 +121,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 let g:NERDDefaultAlign = 'left' " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
-let g:NERDCustomDelimiters = { 'eruby.yaml': { 'left': '#' } }
+let g:NERDCustomDelimiters = { 'eruby.yaml': { 'left': '#' }, 'dustjs': { 'left': '{!', 'right': '!}' } }
 let g:NERDCommentEmptyLines = 1
 
 
@@ -165,16 +153,20 @@ highlight ALEWarning ctermbg=Black
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'ruby': ['rubocop'],
-\   'javascript': ['prettier'],
+\   'ruby': ['standardrb'],
+\   'javascript': ['eslint'],
+\   'css': ['prettier'],
 \   'markdown': ['prettier'],
 \   'erb': ['erb'],
-\   'elixir': ['mix_format']
+\   'elixir': ['mix_format'],
+\   'elm': ['elm-format']
 \}
 
 " phoenix code reloading doesn't work without this
 let g:ale_linters = {
-\   'elixir': ['mix']
+\   'elixir': ['mix'],
+\   'javascript': ['eslint'],
+\   'ruby': ['standardrb']
 \}
 
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
@@ -195,7 +187,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-" let test#strategy = "neovim"
+let test#strategy = "neovim"
 " let test#neovim#term_position = "vertical topleft split"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 
@@ -223,7 +215,7 @@ let g:projectionist_heuristics = {
 " ==============================================================
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<C-tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpForwardTrigger="<C-a>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips/"
@@ -243,36 +235,45 @@ let g:user_emmet_settings = {
   \}
 
 " ==============================================================
-"                     JAVASCRIPT SETTINGS
+"                     javascript settings
 " ==============================================================
-autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+" autocmd bufwritepost *.js asyncrun -post=checktime ./node_modules/.bin/eslint --fix %
 
 
 " ==============================================================
-"                     EDITORCONFIG SETTINGS
+"                     editorconfig settings
 " ==============================================================
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:editorconfig_exclude_patterns = ['fugitive://.*']
 
 
 " ==============================================================
-"                     ELM SETTINGS
+"                     elm settings
 " ==============================================================
- let g:elm_setup_keybindings = 0
+let g:elm_setup_keybindings = 0
 
 
 " ==============================================================
-"                     GUTENTAGS SETTINGS
+"                     gutentags settings
 " ==============================================================
 let g:gutentags_define_advanced_commands = 1
 let g:gutentags_exclude_filetypes = ['gitcommit']
 
 
 " =================================================
-"                     AIRLINE SETTINGS
+"                     THEME SETTINGS
 " =================================================
+
+
+colorscheme solarized
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
+
+if ($ITERM_PROFILE == 'dark')
+ let g:airline_solarized_bg='dark'
+ set background=dark
+else
+ let g:airline_solarized_bg='light'
+endif
 
 
 " =================================================
