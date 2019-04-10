@@ -113,7 +113,8 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 " disable comments automatically continuing on next line if press return
 autocmd filetype * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+" set .md files to markdown syntax
+autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 " ==============================================================
 "                    NERDCOMMENTER
@@ -153,7 +154,7 @@ highlight ALEWarning ctermbg=Black
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'ruby': ['standardrb'],
+\   'ruby': ['rubocop'],
 \   'javascript': ['eslint'],
 \   'css': ['prettier'],
 \   'markdown': ['prettier'],
@@ -166,7 +167,7 @@ let g:ale_fixers = {
 let g:ale_linters = {
 \   'elixir': ['mix'],
 \   'javascript': ['eslint'],
-\   'ruby': ['standardrb']
+\   'ruby': ['rubocop']
 \}
 
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
@@ -256,7 +257,7 @@ let g:elm_setup_keybindings = 0
 "                     gutentags settings
 " ==============================================================
 let g:gutentags_define_advanced_commands = 1
-let g:gutentags_exclude_filetypes = ['gitcommit']
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '']
 
 
 " =================================================
@@ -273,6 +274,7 @@ if ($ITERM_PROFILE == 'dark')
  set background=dark
 else
  let g:airline_solarized_bg='light'
+ set background=light
 endif
 
 
@@ -321,6 +323,7 @@ nnoremap <leader>bp :bp<cr>
 nnoremap <leader>af :ALEFix<cr>
 nnoremap <leader>an :ALENext<cr>
 nnoremap <leader>ap :ALEPrevious<cr>
+nnoremap <leader>ad :ALEDetail<cr>
 
 " Netrw mappings
 nnoremap <leader>e :Explore<cr>

@@ -11,3 +11,4 @@ alias pg_start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.p
 alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 
 export PROFILE_NETWORK_DOCKER_IP=`docker network inspect profile_default --format '{{index .IPAM.Config 0 "Gateway"}}'`
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
