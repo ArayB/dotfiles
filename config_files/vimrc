@@ -257,7 +257,7 @@ let g:elm_setup_keybindings = 0
 "                     gutentags settings
 " ==============================================================
 let g:gutentags_define_advanced_commands = 1
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '']
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '', 'json']
 
 
 " =================================================

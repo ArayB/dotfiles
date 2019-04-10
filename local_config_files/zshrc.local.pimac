@@ -12,3 +12,4 @@ alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.
 
 export PROFILE_NETWORK_DOCKER_IP=`docker network inspect profile_default --format '{{index .IPAM.Config 0 "Gateway"}}'`
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+eval "$(lua ~/repos/z.lua/z.lua --init zsh enhanced once fzf)"

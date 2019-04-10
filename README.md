@@ -17,6 +17,7 @@ Exuberant Ctags
 ## Installation
 
 Install solarized, follow instructions and add dircolours.
+
 ```
 git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git ~/.solarized
 cd ~/.solarized
@@ -36,7 +37,9 @@ Add [Hanami oh-mh-zsh plugin](https://github.com/davydovanton/hanami-zsh)
 
 [bat](https://github.com/sharkdp/bat) `brew install bat`
 
-[autojump](https://github.com/wting/autojump) `brew install autojump`
+Auto jump functionality in command line:
+
+[z.lua](https://github.com/skywind3000/z.lua)
 
 [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy) `brew install diff-so-fancy`
 
@@ -61,4 +64,4 @@ git config --global color.diff.whitespace "red reverse"
 ### Other things that need to be present
 
 Python 3 and pip3 (Python version > 3.5)
-`pip3 install neovim` for deoplete to work
+`pip3 install neovim` for deoplete to work (Not using this currently)
