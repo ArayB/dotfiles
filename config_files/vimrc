@@ -40,13 +40,15 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'skywind3000/asyncrun.vim'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 " auto close ({[ etc.
-Plug 'Townk/vim-autoclose'
+" Plug 'Townk/vim-autoclose'
 " auto close x/html tags
-Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 Plug 'adelarsq/vim-matchit'
+Plug 'godlygeek/tabular'
 
 
 " The Tim Pope collection
@@ -56,6 +58,10 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-vinegar'
 
 " Language/templating/framework plugins
 Plug 'elixir-editors/vim-elixir'
@@ -64,11 +70,11 @@ Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-rails'
 Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'
 Plug 'posva/vim-vue'
 Plug 'jimmyhchan/dustjs.vim'
+" Plug 'sovetnik/vim-hanami'
 
 call plug#end()
 
@@ -111,10 +117,14 @@ set noswapfile
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
 
+
 " disable comments automatically continuing on next line if press return
 autocmd filetype * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " set .md files to markdown syntax
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+
+" fix syntax highlighting in vue files randomly stopping
+autocmd FileType vue syntax sync fromstart
 
 " ==============================================================
 "                    NERDCOMMENTER
@@ -125,6 +135,26 @@ let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace wh
 let g:NERDCustomDelimiters = { 'eruby.yaml': { 'left': '#' }, 'dustjs': { 'left': '{!', 'right': '!}' } }
 let g:NERDCommentEmptyLines = 1
 
+let g:ft = ''
+function! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      endif
+    endif
+  endif
+endfunction
+function! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    let g:ft = ''
+  endif
+endfunction
+
 
 " ==============================================================
 "                    RIPGREP
@@ -132,6 +162,7 @@ let g:NERDCommentEmptyLines = 1
 nnoremap K :Rg <C-R><C-W><CR>
 nnoremap \ :Rg<SPACE>
 
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --glob "!/deps/" --glob "!/node_modules" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " ==============================================================
 "                    ALCHEMIST
@@ -151,28 +182,43 @@ let g:alchemist_tag_disable = 1
 "                          ALE
 " ==============================================================
 highlight ALEWarning ctermbg=Black
+let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'ruby': ['rubocop'],
-\   'javascript': ['eslint'],
-\   'css': ['prettier'],
+\   'ruby': ['standardrb'],
+\   'css': ['prettier', 'stylelint'],
+\   'scss': ['prettier', 'stylelint'],
+\   'less': ['prettier'],
 \   'markdown': ['prettier'],
 \   'erb': ['erb'],
 \   'elixir': ['mix_format'],
-\   'elm': ['elm-format']
+\   'elm': ['elm-format'],
+\   'javascript': ['prettier', 'eslint'],
 \}
+
+
+
 
 " phoenix code reloading doesn't work without this
 let g:ale_linters = {
-\   'elixir': ['mix'],
-\   'javascript': ['eslint'],
-\   'ruby': ['rubocop']
+\   'ruby': ['standardrb'],
+\   'javascript': ['prettier', 'eslint'],
+\   'less': ['prettier'],
+\   'css': ['prettier', 'stylelint'],
+\   'scss': ['prettier', 'stylelint'],
 \}
+
+" \   'elixir': ['mix'],
 
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_javascript_prettier_use_local_config = 1
 
 
 " ==============================================================
@@ -203,8 +249,8 @@ let g:rails_projections = {
 
 let g:projectionist_heuristics = {
       \ "*": {
-      \  "apps/*.rb": { "alternate": "spec/{}_spec.rb", "type": "source" },
-      \  "spec/*_spec.rb": { "alternate": "apps/{}.rb", "type": "test" },
+      \  "app/*.rb": { "alternate": "spec/{}_spec.rb", "type": "source" },
+      \  "spec/*_spec.rb": { "alternate": "app/{}.rb", "type": "test" },
       \  "lib/*.ex": {"alternate": "test/{}_test.exs", "type": "source" },
       \  "test/*_test.exs": { "alternate": "lib/{}.ex", "type": "test" }
       \ }
@@ -228,9 +274,9 @@ let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/", "UltiSnips"]
 " ==============================================================
 let g:user_emmet_leader_key='<c-m>'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,scss,eruby EmmetInstall
+autocmd FileType html,css,scss,eruby,javascript,vue EmmetInstall
 let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
+  \  'javascript' : {
   \      'extends' : 'jsx',
   \  },
   \}
@@ -257,7 +303,7 @@ let g:elm_setup_keybindings = 0
 "                     gutentags settings
 " ==============================================================
 let g:gutentags_define_advanced_commands = 1
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '', 'json']
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '', 'json', 'dockerfile', 'yaml']
 
 
 " =================================================
@@ -269,6 +315,7 @@ colorscheme solarized
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 
+
 if ($ITERM_PROFILE == 'dark')
  let g:airline_solarized_bg='dark'
  set background=dark
@@ -277,6 +324,8 @@ else
  set background=light
 endif
 
+set showmatch
+hi MatchParen cterm=bold ctermbg=DarkGray ctermfg=161
 
 " =================================================
 "                     SUPERTAB SETTINGS
@@ -293,13 +342,21 @@ nnoremap <leader><leader> <c-^>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 
-nnoremap <leader>t :w<cr>:TestFile<cr>
-nnoremap <leader>s :w<cr>:TestNearest<cr>
-nnoremap <leader>a :w<cr>:TestSuite<cr>
-nnoremap <leader>l :w<cr>:TestLast<cr>
-nnoremap <leader>v :w<cr>:TestVisit<cr>
+" nnoremap <leader>t :w<cr>:TestFile<cr>
+" nnoremap <leader>s :w<cr>:TestNearest<cr>
+" nnoremap <leader>a :w<cr>:TestSuite<cr>
+" nnoremap <leader>l :w<cr>:TestLast<cr>
+" nnoremap <leader>v :w<cr>:TestVisit<cr>
+
+nnoremap <leader>t :TestFile<cr>
+nnoremap <leader>s :TestNearest<cr>
+nnoremap <leader>a :TestSuite<cr>
+nnoremap <leader>l :TestLast<cr>
+nnoremap <leader>v :TestVisit<cr>
 
 nnoremap <C-p> :Files<cr>
+nnoremap <C-t> :Find<cr>
+
 nnoremap gd <C-]>
 
 " Ruby/Rails leader mappings

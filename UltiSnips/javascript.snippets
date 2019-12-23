@@ -1,4 +1,33 @@
 snippet nr
-var $1 = require('$2');
+var $1 = require('$2')
 $0
+endsnippet
+
+snippet csl
+console.log('*************************************')
+console.log('*************************************')
+console.log('*************************************')
+console.log($0)
+endsnippet
+
+snippet lg
+console.log($0)
+endsnippet
+
+snippet dsc
+describe('$1', () => {
+	$0
+})
+endsnippet
+
+snippet ctx
+context('$1', () => {
+	$0
+})
+endsnippet
+
+snippet it
+it('$1', () => {
+	$0
+})
 endsnippet

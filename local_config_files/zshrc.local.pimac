@@ -1,15 +1,15 @@
 export ZSH=/Users/anthonybarnes/.oh-my-zsh
 
 export PATH="/usr/local/bin:$PATH"
-# export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
 export GTAGSLABEL=ctags
+
 
 export EDITOR='nvim'
 export BUNDLER_EDITOR='nvim'
 
-alias pg_start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+alias tsl="theme-switch light"
+alias tsd="theme-switch dark"
 
-export PROFILE_NETWORK_DOCKER_IP=`docker network inspect profile_default --format '{{index .IPAM.Config 0 "Gateway"}}'`
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-eval "$(lua ~/repos/z.lua/z.lua --init zsh enhanced once fzf)"
+
+export DEFAULT_USER="anthonybarnes"

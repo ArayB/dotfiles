@@ -9,16 +9,10 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="bira"
-# ZSH_THEME="kolo"
-# ZSH_THEME="af-magic"
 ZSH_THEME="powerlevel9k/powerlevel9k"
-DEFAULT_USER="anthony.barnes"
-
-# export FZF_DEFAULT_COMMAND='rg --type f --follow --exclude .git'
-# FZF_DEFAULT_COMMAND='rg --files --exclude .git'
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
+# ZSH_THEME="agnoster"
+# add this to machine zshrc to fix prompt
+# DEFAULT_USER="anthony.barnes"
 
 if [[ $ITERM_PROFILE == "dark" ]];
 then
@@ -92,12 +86,22 @@ function theme-switch {
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails bundler vi-mode docker-compose)
+# plugins=(git rails bundler vi-mode docker-compose)
+plugins=(git rails bundler docker-compose)
 
 source $ZSH/oh-my-zsh.sh
-unalias rg # rails generate alias from rails plugin, clashes with ripgrep
+# unalias rg # rails generate alias from rails plugin, clashes with ripgrep
 
 alias dps="docker ps"
+alias HET='HANAMI_ENV=test'
+bindkey "^[f" forward-word
+bindkey "^[b" backward-word
+bindkey "^[F" forward-word
+bindkey "^[B" backward-word
+
+
+# bindkey 'C-o' fzf-file-widget
+# bindkey 'C-t' transpose-chars
 
 # User configuration
 # --files: List files that would be searched but do not search
@@ -106,9 +110,16 @@ alias dps="docker ps"
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 
-# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!/deps/" --glob "!/node_modules/" --glob "!/_build/"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# export FZF_DEFAULT_OPTS=--inline-info
+# bindkey '\C-o' fzf-file-widget
+bindkey '\C-o' transpose-chars
+# bindkey '^O' fzf-file-widget
+# bindkey '^T' transpose-chars
+# bindkey '^o' fzf-file-widget
+# bindkey '^t' transpose-chars
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -119,7 +130,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -176,5 +187,7 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
+eval "$(lua ~/repos/z.lua/z.lua --init zsh enhanced once fzf)"
+source ~/.bin/tmuxinator.zsh
+source ~/.heroku/credentials
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

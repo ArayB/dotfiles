@@ -9,6 +9,8 @@ export GTAGSLABEL=ctags
 export EDITOR='nvim'
 export BUNDLER_EDITOR='nvim'
 
+source ~/.bin/tmuxinator.zsh
+
 
 alias sqax1="ssh portal-web1.qax.ie.aws.thefloow.net"
 alias sqax2="ssh portal-web2.qax.ie.aws.thefloow.net"
