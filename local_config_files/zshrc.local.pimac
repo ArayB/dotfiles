@@ -1,12 +1,14 @@
 export ZSH=/Users/anthonybarnes/.oh-my-zsh
 
 export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 export GTAGSLABEL=ctags
 
 
 export EDITOR='nvim'
 export BUNDLER_EDITOR='nvim'
 
+# export RUBYOPT='-W:no-deprecated -W:no-experimental'
 alias tsl="theme-switch light"
 alias tsd="theme-switch dark"
 

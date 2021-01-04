@@ -14,10 +14,18 @@ snippet bp
 binding.pry
 endsnippet
 
-snippet rsp
+snippet rspec
 require 'rspec'
 
 RSpec.describe $1, type: :$2 do
   $0
+end
+endsnippet
+
+snippet dsc
+describe '$1' do
+  it '$2' do
+    $0
+  end
 end
 endsnippet
