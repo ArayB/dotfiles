@@ -1,0 +1,100 @@
+set nocompatible
+
+" syntax on
+" filetype on
+" filetype indent on
+" filetype plugin on
+
+" let mapleader = " "
+" set clipboard=unnamedplus
+" set backspace=2
+" set autowrite
+" set splitright
+" set title titlestring=
+" set nojoinspaces " Use one space, not two, after punctuation.
+" set nu
+" set rnu
+" set noerrorbells visualbell t_vb= " no bloody beeping
+" autocmd GUIEnter * set visualbell t_vb=
+" set tabstop=2
+" set shiftwidth=2
+" set shiftround
+" set expandtab
+" set hidden " keeps buffers in memory when not in view, preserves history, marks etc.
+" set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
+" setlocal list listchars=tab:»·,trail:·,nbsp:·
+" set history=50  " Number of things to remember in history.
+" set timeoutlen=500
+" set backup                     " Enable creation of backup file.
+" set backupdir=~/.dotfiles/vim/backups// " Where backups will go.
+" set directory=~/.dotfiles/vim/tmp//     " Where temporary files will go.
+" set noswapfile
+"set nobackup
+
+" Highlight the 81st column on any line that exceeds 80 columns
+" highlight ColorColumn ctermbg=magenta
+" call matchadd('ColorColumn', '\%81v', 100)
+
+
+" disable comments automatically continuing on next line if press return
+" autocmd filetype * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" set .md files to markdown syntax
+" autocmd BufNewFile,BufRead *.md set filetype=markdown
+" autocmd BufNewFile,BufRead *.rake set filetype=ruby
+
+" fix syntax highlighting in vue files randomly stopping
+" autocmd FileType vue syntax sync fromstart
+
+
+" ==============================================================
+"                     LEADER/MAPPINGS
+" ==============================================================
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+
+" nnoremap <leader>t :w<cr>:TestFile<cr>
+" nnoremap <leader>s :w<cr>:TestNearest<cr>
+" nnoremap <leader>a :w<cr>:TestSuite<cr>
+" nnoremap <leader>l :w<cr>:TestLast<cr>
+" nnoremap <leader>v :w<cr>:TestVisit<cr>
+
+" nnoremap <leader>t :TestFile<cr>
+" nnoremap <leader>s :TestNearest<cr>
+" nnoremap <leader>a :TestSuite<cr>
+" nnoremap <leader>l :TestLast<cr>
+" nnoremap <leader>v :TestVisit<cr>
+
+" nnoremap <C-p> :Files<cr>
+" nnoremap <C-t> :Find<cr>
+" nnoremap <leader>n :NERDTreeToggle<cr>
+" nnoremap <leader>e :NERDTreeFind<cr>
+
+" nnoremap gd <C-]>
+
+" Ruby/Rails leader mappings
+" nnoremap <leader>r :Rails<SPACE>
+" nnoremap <leader>rg :e Gemfile<cr>
+" nnoremap <leader>rr :e config/routes.rb<cr>
+" nnoremap <leader>rd :e config/database.yml<cr>
+
+" when using nvim map Ctrl-o to come out of insert mode in terminal
+" if has('nvim')
+"   tmap <C-o> <C-\><C-n>
+" endif
+
+" buffer mappings
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bda :%bd<cr>
+nnoremap <leader>b :bu<space>
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bp :bp<cr>
+
+" tab window mappings
+nnoremap <leader>tn :tabn<cr>
+nnoremap <leader>tp :tabp<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>te :tabedit<SPACE>
+

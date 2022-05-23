@@ -6,14 +6,14 @@ set nocompatible
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" end
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -24,6 +24,7 @@ Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'janko-m/vim-test'
+Plug 'benmills/vimux'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/asyncrun.vim'
@@ -41,25 +42,33 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-vinegar'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " Language/templating/framework plugins
 Plug 'elixir-editors/vim-elixir'
 Plug 'elmcast/elm-vim'
 Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
 Plug 'c-brenn/phoenix.vim'
 Plug 'slashmili/alchemist.vim'
-" Plug 'posva/vim-vue'
 Plug 'jimmyhchan/dustjs.vim'
 Plug 'fishbullet/deoplete-ruby'
-" Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'chrisbra/csv.vim'
+Plug 'fatih/vim-go'
 
 " PUG stuff
 " Plug 'digitaltoad/vim-pug'
 Plug 'othree/html5.vim'
+
+" Plug 'LucHermitte/lh-vim-lib'
+" Plug 'LucHermitte/local_vimrc'
+
+" Theme plugin
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -107,6 +116,7 @@ set noswapfile
 autocmd filetype * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " set .md files to markdown syntax
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.rake set filetype=ruby
 
 " fix syntax highlighting in vue files randomly stopping
 autocmd FileType vue syntax sync fromstart
@@ -120,6 +130,12 @@ let g:deoplete#enable_at_startup = 1
 " call deoplete#custom#option({
 " \ 'auto_complete_delay': 200,
 " \ })
+
+" ==============================================================
+"                 CoC extensions
+" ==============================================================
+
+let g:coc_global_extensions = ['coc-tsserver']
 
 " ==============================================================
 "                    FZF
@@ -195,7 +211,7 @@ let g:alchemist_tag_disable = 1
 " ==============================================================
 highlight ALEWarning ctermbg=Black
 let g:airline#extensions#ale#enabled = 1
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'ruby': ['rubocop'],
@@ -206,6 +222,7 @@ let g:ale_fixers = {
 \   'elixir': ['mix_format'],
 \   'elm': ['elm-format'],
 \   'javascript': ['prettier', 'eslint'],
+\   'go': ['gofmt'],
 \}
 
 
@@ -219,19 +236,21 @@ let g:ale_linters = {
 \   'css': ['prettier', 'stylelint'],
 \   'scss': ['prettier', 'stylelint'],
 \   'eruby': ['erb'],
+\   'go': ['gofmt'],
 \}
 
 " \   'elixir': ['mix'],
 
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+" let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 let g:ale_lint_on_enter = 1
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_ruby_rubocop_executable = 'bundle'
 
 
 " ==============================================================
@@ -247,10 +266,13 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-let test#strategy = "neovim"
+" let test#strategy = "neovim"
+let test#strategy = "vimux"
 " let test#neovim#term_position = "vertical topleft split"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
 let test#ruby#rspec#executable = 'bundle exec rspec'
+" let test#ruby#rspec#executable = 'docker-compose run --rm --no-deps web bundle exec rspec'
+let g:VimuxHeight = "30"
 
 let g:rails_projections = {
       \ "app/lib/*.rb": {
@@ -317,29 +339,48 @@ let g:elm_setup_keybindings = 0
 "                     gutentags settings
 " ==============================================================
 let g:gutentags_define_advanced_commands = 1
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '', 'json', 'dockerfile', 'yaml']
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitrebase', 'conf', 'text', '', 'json', 'dockerfile', 'yaml', 'vim']
 
 
 " =================================================
 "                     THEME SETTINGS
 " =================================================
 
-
-colorscheme solarized
+autocmd vimenter * ++nested colorscheme gruvbox
+" colorscheme solarized
+" autocmd VimEnter,ColorScheme * hi! link CocFloating CocHintFloat
 let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
+" let g:airline_theme='solarized'
 
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+" if (empty($TMUX))
+"   if (has("nvim"))
+"     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+"     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"   endif
+"   "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"   "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+"   " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+"   if (has("termguicolors"))
+"     set termguicolors
+"   endif
+" endif
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+set termguicolors
 
 if ($ITERM_PROFILE == 'dark')
- let g:airline_solarized_bg='dark'
+ " let g:airline_solarized_bg='dark'
  set background=dark
 else
- let g:airline_solarized_bg='light'
+ " let g:airline_solarized_bg='light'
  set background=light
 endif
 
 set showmatch
-hi MatchParen cterm=bold ctermbg=DarkGray ctermfg=161
+" hi MatchParen cterm=bold ctermbg=DarkGray ctermfg=161
 
 " =================================================
 "                     SUPERTAB SETTINGS
@@ -381,6 +422,10 @@ nnoremap <leader>rg :e Gemfile<cr>
 nnoremap <leader>rr :e config/routes.rb<cr>
 nnoremap <leader>rd :e config/database.yml<cr>
 
+" Docker mappings
+nnoremap <leader>dc :e docker-compose.yml<cr>
+
+
 " when using nvim map Ctrl-o to come out of insert mode in terminal
 if has('nvim')
   tmap <C-o> <C-\><C-n>
@@ -392,6 +437,14 @@ nnoremap <leader>bda :%bd<cr>
 nnoremap <leader>b :bu<space>
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bp<cr>
+
+" tab window mappings
+nnoremap <leader>tn :tabn<cr>
+nnoremap <leader>tp :tabp<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>te :tabedit<SPACE>
+
 
 " ALE leader mappings
 nnoremap <leader>af :ALEFix<cr>

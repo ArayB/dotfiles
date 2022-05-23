@@ -1,4 +1,4 @@
-export ZSH=/Users/anthonybarnes/.oh-my-zsh
+export ZSH=/Users/ant/.oh-my-zsh
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
@@ -14,4 +14,6 @@ alias tsd="theme-switch dark"
 
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
-export DEFAULT_USER="anthonybarnes"
+export DEFAULT_USER="ant"
+
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
