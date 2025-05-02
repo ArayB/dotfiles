@@ -1,0 +1,32 @@
+export GITHUB_USER='ArayB'
+alias load_db='./load-db.sh ~/Downloads/anon-data-no-audit-logs.sql ant.barnes app_development'
+alias load_db_full='./load-db.sh ~/Downloads/anon-db.sql ant.barnes app_development'
+alias load_db_staging='./load-db.sh ~/Downloads/ebdb-cleansed.sql ant.barnes app_development'
+
+
+alias load_db_local_full='./load-db-local.sh ~/Downloads/anon-db.sql ant.barnes app_development'
+alias load_db_local='./load-db-local.sh ~/Downloads/anon-data-no-audit-logs.sql ant.barnes app_development'
+alias load_db_local_staging='./load-db-local.sh ~/Downloads/ebdb-cleansed.sql ant.barnes app_development'
+alias load_db_local_demo='./load-db-local.sh ~/Downloads/demo-data.sql ant.barnes app_development'
+
+alias nvc='nvim ~/.aws/credentials'
+
+alias prodssm='./connect-instance-ssm.sh -P eng prod'
+alias stagssm='./connect-instance-ssm.sh -P eng stag'
+
+export AWS_REGION='eu-west-2'
+
+export DOCKER_APPLE_SILICON_PLATFORM='linux/x86_64'
+# export PATH="/opt/homebrew/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/mysql/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+# export PATH="/opt/homebrew/opt/libressl/bin:$PATH"
+# export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/bin/openssl
+
+# . ~/.asdf/plugins/java/set-java-home.zsh
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PULUMI_CONFIG_PASSPHRASE=""
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+

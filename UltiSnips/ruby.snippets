@@ -10,6 +10,23 @@ puts "DBG: #{$0}"
 puts '*'*50
 endsnippet
 
+snippet dbgm
+puts '*'*50
+puts "Method: #{__method__}"
+puts '*'*50
+endsnippet
+
+snippet dbgc
+puts '*'*50
+puts "Method: #{__callee__}"
+puts '*'*50
+endsnippet
+
+snippet pts
+puts '*'*50
+puts "$0"
+endsnippet
+
 snippet bp
 binding.pry
 endsnippet

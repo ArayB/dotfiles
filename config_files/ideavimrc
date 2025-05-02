@@ -1,0 +1,30 @@
+" source ~/.vimrc
+Plug 'preservim/nerdtree'
+" Plug 'tpope/vim-surround'
+
+let mapleader = " "
+set clipboard=unnamedplus
+set backspace=2
+set nu
+set rnu
+set noerrorbells visualbell t_vb= " no bloody beeping
+set surround
+
+
+set NERDTree
+nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>e :NERDTreeFind<cr>
+
+nnoremap gd <C-]>
+nnoremap <leader>w :w<cr>
+" buffer mappings
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bp :bp<cr>
+
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+
+let @f = 'ggO# frozen_string_literal: true'

@@ -13,7 +13,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 "   Plug 'roxma/nvim-yarp'
 "   Plug 'roxma/vim-hug-neovim-rpc'
 " end
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -70,6 +72,17 @@ Plug 'othree/html5.vim'
 " Theme plugin
 Plug 'morhetz/gruvbox'
 
+" Stuff for TODO list thing
+" Tree sitter is better syntax highlighting apparently
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'atidyshirt/Todo.vim'
+Plug 'kevinhwang91/nvim-bqf'
+
+Plug 'jparise/vim-graphql'
+
+Plug 'github/copilot.vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'HiPhish/rainbow-delimiters.nvim'
 call plug#end()
 
 " =================================================
@@ -80,6 +93,11 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
+
+" disable PERL and Python providers in NVIM
+let g:loaded_perl_provider = 0
+" let g:loaded_python3_provider = 0
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 let mapleader = " "
 set clipboard=unnamedplus
@@ -118,9 +136,13 @@ autocmd filetype * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.rake set filetype=ruby
 
+autocmd BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+autocmd BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
+autocmd BufRead,BufNewFile mix.lock set filetype=elixir
+
 " fix syntax highlighting in vue files randomly stopping
 autocmd FileType vue syntax sync fromstart
-
+let g:indent_blankline_enabled = 1
 
 " ==============================================================
 "                    DEOPLETE
@@ -212,6 +234,7 @@ let g:alchemist_tag_disable = 1
 highlight ALEWarning ctermbg=Black
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 0
+let js_fixers = ['prettier', 'eslint']
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'ruby': ['rubocop'],
@@ -221,7 +244,10 @@ let g:ale_fixers = {
 \   'markdown': ['prettier'],
 \   'elixir': ['mix_format'],
 \   'elm': ['elm-format'],
-\   'javascript': ['prettier', 'eslint'],
+\   'javascript': js_fixers,
+\   'javascript.jsx': js_fixers,
+\   'typescript': js_fixers,
+\   'typescriptreact': js_fixers,
 \   'go': ['gofmt'],
 \}
 
@@ -270,7 +296,8 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 let test#strategy = "vimux"
 " let test#neovim#term_position = "vertical topleft split"
 " let test#ruby#minitest#file_pattern = '_spec\.rb' " the default is '_test\.rb'
-let test#ruby#rspec#executable = 'bundle exec rspec'
+" let test#ruby#rspec#executable = 'bundle exec rspec'
+let test#ruby#rspec#executable = 'bundle exec bin/rspec'
 " let test#ruby#rspec#executable = 'docker-compose run --rm --no-deps web bundle exec rspec'
 let g:VimuxHeight = "30"
 
@@ -302,7 +329,7 @@ let g:UltiSnipsJumpForwardTrigger="<C-a>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips/"
-let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/", "UltiSnips"]
+let g:UltiSnipsSnippetDirectories=["~/.vim/UltiSnips/"]
 
 
 " ==============================================================
@@ -371,13 +398,13 @@ let g:airline_powerline_fonts = 1
 
 set termguicolors
 
-if ($ITERM_PROFILE == 'dark')
+" if ($ITERM_PROFILE == 'dark')
  " let g:airline_solarized_bg='dark'
- set background=dark
-else
+set background=dark
+" else
  " let g:airline_solarized_bg='light'
- set background=light
-endif
+ " set background=light
+" endif
 
 set showmatch
 " hi MatchParen cterm=bold ctermbg=DarkGray ctermfg=161
@@ -480,6 +507,15 @@ nnoremap <leader>gps :Dispatch! git push<cr>
 nnoremap <leader>gpl :Dispatch! git pull<cr>
 nnoremap <leader>gl :Git blame<cr>
 nnoremap <leader>grm :Gremove<cr>
+
+nnoremap <leader>td :Todo<CR>
+
+" file opening mappings
+nnoremap <leader>en :e .env<CR>
+nnoremap <leader>du :e app/lib/dev_utils.rb<CR>
+nnoremap <leader>sr :e scratch.rb<CR>
+nnoremap <leader>st :e scratch.txt<CR>
+
 
 " ==============================================================
 "                     MACROS

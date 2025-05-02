@@ -13,6 +13,7 @@ Exuberant Ctags
 [RipGrep](https://github.com/BurntSushi/ripgrep)
 
 [fzf](https://github.com/junegunn/fzf)
+Install fzf using git, homebrew installation doesn't link up keyboard shortcuts correctly.
 
 ## Installation
 

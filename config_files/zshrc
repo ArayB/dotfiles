@@ -1,9 +1,11 @@
 ulimit -n 1024
-
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=/opt/homebrew/bin:$PATH
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+
 # export ZSH=/Users/anthony.barnes/.oh-my-zsh
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.zshrc.keys ]] && source ~/.zshrc.keys
@@ -12,18 +14,23 @@ ulimit -n 1024
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="powerlevel9k/powerlevel9k"
+# ZSH_THEME="robbyrussell"
 ZSH_THEME="agnoster"
-# add this to machine zshrc to fix prompt
-# DEFAULT_USER="anthony.barnes"
 
-if [[ $ITERM_PROFILE == "dark" ]];
-then
-  export BAT_THEME="Monokai Extended"
-  export THEME_TYPE="dark"
-else
-  export bat_theme="monokai extended light"
-  export theme_type="light"
-fi
+# add this to machine zshrc to fix prompt
+export DEFAULT_USER="ant"
+export EDITOR='nvim'
+export BUNDLER_EDITOR='nvim'
+export GTAGSLABEL=ctags
+
+# if [[ $ITERM_PROFILE == "dark" ]];
+# then
+export BAT_THEME="Monokai Extended"
+export THEME_TYPE="dark"
+# else
+#   export bat_theme="monokai extended light"
+#   export theme_type="light"
+# fi
 
 function theme-switch {
  echo -e "\033]50;SetProfile=$1\a"
@@ -89,13 +96,13 @@ function theme-switch {
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git rails bundler vi-mode docker-compose)
-plugins=(git rails bundler docker-compose)
-
+plugins=(git rails bundler docker-compose zsh-syntax-highlighting asdf)
 source $ZSH/oh-my-zsh.sh
 # unalias rg # rails generate alias from rails plugin, clashes with ripgrep
 
 alias dps="docker ps"
-alias HET='HANAMI_ENV=test'
+alias vimdiff='nvim -d'
+# alias HET='HANAMI_ENV=test'
 bindkey "^[f" forward-word
 bindkey "^[b" backward-word
 bindkey "^[F" forward-word
@@ -185,23 +192,32 @@ if [[ -n ${TMUX} && -n ${commands[tmux]} ]];then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-eval "$(lua ~/repos/z.lua/z.lua --init zsh enhanced once fzf)"
-# source ~/.bin/tmuxinator.zsh
-source ~/.heroku/credentials
-source "/Users/ant/scratch/emsdk/emsdk_env.sh"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-export GOPATH=$HOME/go
 
-. $HOME/.asdf/asdf.sh
+# [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+
+# source ~/.bin/tmuxinator.zsh
+# export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# . $HOME/.asdf/asdf.sh
 # . $HOME/.asdf/completions/asdf.bash
 # append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+# fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
 compinit
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
 export PATH="/usr/local/opt/curl/bin:$PATH"
+
+eval "$(lua ~/repos/z.lua/z.lua --init zsh enhanced once fzf)"
+
+# pnpm
+export PNPM_HOME="/Users/ant/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

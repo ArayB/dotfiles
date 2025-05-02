@@ -8,13 +8,16 @@ GPATH
 GRTAGS
 TAGS
 git_stats
-/coverage
 /target
 tags.lock
 tags.temp
 scratch.*
+scratch-*.*
 .editorconfig
 _vimrc_local.vim
+change_org.rb
+dev_utils.rb
+.pryrc
 
 .projections.json
 .devcontainer

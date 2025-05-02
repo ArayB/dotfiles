@@ -5,7 +5,7 @@ set nocompatible
 " filetype indent on
 " filetype plugin on
 
-" let mapleader = " "
+let mapleader = " "
 " set clipboard=unnamedplus
 " set backspace=2
 " set autowrite
@@ -51,7 +51,7 @@ set nocompatible
 " ==============================================================
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-nnoremap <leader>w :w<cr>
+" nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 
 " nnoremap <leader>t :w<cr>:TestFile<cr>
@@ -85,16 +85,16 @@ nnoremap <leader>q :q<cr>
 " endif
 
 " buffer mappings
-nnoremap <leader>bd :bd<cr>
-nnoremap <leader>bda :%bd<cr>
-nnoremap <leader>b :bu<space>
-nnoremap <leader>bn :bn<cr>
-nnoremap <leader>bp :bp<cr>
+" nnoremap <leader>bd :bd<cr>
+" nnoremap <leader>bda :%bd<cr>
+" " nnoremap <leader>b :bu<space>
+" nnoremap <leader>bn :bn<cr>
+" nnoremap <leader>bp :bp<cr>
 
 " tab window mappings
-nnoremap <leader>tn :tabn<cr>
-nnoremap <leader>tp :tabp<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>to :tabonly<cr>
-nnoremap <leader>te :tabedit<SPACE>
+" nnoremap <leader>tn :tabn<cr>
+" nnoremap <leader>tp :tabp<cr>
+" nnoremap <leader>tc :tabclose<cr>
+" nnoremap <leader>to :tabonly<cr>
+" nnoremap <leader>te :tabedit<SPACE>
 
